@@ -150,12 +150,33 @@
     <div class="portfolio-slider">
       <div class="portfolio-track">
 
-        <div class="portfolio-card">Project One</div>
-        <div class="portfolio-card">Project Two</div>
-        <div class="portfolio-card">Project Three</div>
-        <div class="portfolio-card">Project Four</div>
-        <div class="portfolio-card">Project Five</div>
-        <div class="portfolio-card">Project Six</div>
+        <div class="portfolio-card">
+          <img src="image/project1.jpg" alt="Project">
+        </div>
+        <div class="portfolio-card">
+          <img src="image/project1.jpg" alt="Project">
+        </div>
+        <div class="portfolio-card">
+          <img src="image/project1.jpg" alt="Project">
+        </div>
+        <div class="portfolio-card">
+          <img src="image/project1.jpg" alt="Project">
+        </div>
+        <div class="portfolio-card">
+          <img src="image/project1.jpg" alt="Project">
+        </div>
+        <div class="portfolio-card">
+          <img src="image/project1.jpg" alt="Project">
+        </div>
+        <div class="portfolio-card">
+          <img src="image/project1.jpg" alt="Project">
+        </div>
+        <div class="portfolio-card">
+          <img src="image/project1.jpg" alt="Project">
+        </div>
+        <div class="portfolio-card">
+          <img src="image/project1.jpg" alt="Project">
+        </div>
 
       </div>
     </div>
@@ -351,30 +372,43 @@
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-
   const track = document.querySelector(".portfolio-track");
-  const cards = document.querySelectorAll(".portfolio-card");
+  const cards = Array.from(document.querySelectorAll(".portfolio-card"));
 
   if (!track || cards.length === 0) return;
 
-  let index = 0;
-  const visibleCards = 3;
-  const totalCards = cards.length;
+  // Clone cards for infinite loop
+  cards.forEach(card => {
+    const clone = card.cloneNode(true);
+    track.appendChild(clone);
+  });
 
-  function slidePortfolio() {
-    index++;
+  let position = 0;
+  let cardWidth = cards[0].offsetWidth + 32; // card + gap
+  let speed = 0.5; // smaller = slower, smoother
 
-    if (index > totalCards - visibleCards) {
-      index = 0;
-    }
-
-    const cardWidth = cards[0].offsetWidth + 32;
-    track.style.transform = `translateX(-${index * cardWidth}px)`;
+  function updateCardWidth() {
+    cardWidth = cards[0].offsetWidth + 32;
   }
 
-  setInterval(slidePortfolio, 2500);
+  window.addEventListener("resize", updateCardWidth);
+
+  function animate() {
+    position -= speed;
+
+    // Reset seamlessly when half scrolled
+    if (Math.abs(position) >= cardWidth * cards.length) {
+      position = 0;
+    }
+
+    track.style.transform = `translateX(${position}px)`;
+    requestAnimationFrame(animate);
+  }
+
+  animate();
 });
 </script>
+
 
 <script src="script.js"></script>
 
