@@ -1,11 +1,9 @@
 const codeText = `
-
 import { build, deploy } from "nexvion-core";
 
 const services = [
   "Web Development",
   "UI/UX Design",
-  "Hosting",
   "SEO Optimization"
 ];
 
