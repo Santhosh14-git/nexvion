@@ -1,17 +1,9 @@
 const codeText = `
 import { build, deploy } from "nexvion-core";
 
-const services = [
-  "Web Development",
-  "UI/UX Design",
-  "SEO Optimization"
-];
+const services = ["Web Dev", "UI/UX", "SEO"];
 
-function startProject(client) {
-  if (!client.idea) return "Define Requirements";
-  build(client.idea);
-  deploy("production");
-}
+const startProject = idea => idea && (build(idea), deploy("prod"));
 
 startProject("Startup");
 console.log("Website Live 🚀");
